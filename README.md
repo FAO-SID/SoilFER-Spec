@@ -1,2 +1,3 @@
 # SoilFER-Spec
-SoilFER Dry Chemistry
+
+SoilFER dry chemistry
