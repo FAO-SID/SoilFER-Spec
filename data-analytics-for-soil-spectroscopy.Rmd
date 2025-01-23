@@ -1,11 +1,13 @@
 ---
 title: "A Course on Applied Data Analytics for Soil Analysis with Infrared Spectroscopy"
+subtitle: Food and Agriculture Organization of the United Nations 
 date: "`r Sys.Date()`"    
 title-block-banner: true
 date-format: long
 output:
-  bookdown::html_document2:
-    highlight: kate
+  html_document:
+    highlight: pygments
+    self-contained: true
     theme: cerulean
     mathjax: default
     toc: yes
@@ -13,7 +15,7 @@ output:
     toc_float:
       collapsed: false
     fig_caption: true
-    number_sections: false
+    number_sections: true
   bookdown::pdf_document2:
     highlight: haddock  
     keep_tex: true    
@@ -36,6 +38,7 @@ header-includes:
   \author[1]{Alexandre M.J.-C. Wadoux}
   \author[2]{Leonardo Ramirez-Lopez}
   \author[3]{Yufeng Ge}
+  \author[4]{Issam Barra}
   \author[4]{Yi Peng}
   \affil[1]{LISAH, Univ Montpellier, AgroParisTech, INRAE, IRD, L'Institut Agro, Montpellier, France}
   \affil[2]{Data Science Department, BUCHI Labortechnik AG, Meierseggstrasse 40, 9230 Flawil, Switzerland}
@@ -61,6 +64,40 @@ if (knitr::is_html_output() || knitr::is_latex_output()) {
 }
 ```
 
+> Required citation: FAO. 2025. A course on applied data analytics for soil analysis with infrared spectroscopy. Rome.
+
+<blockquote style="background-color:#f0f0f0; padding:15px; border-left:5px solid #ccc;">
+<p><strong>Licensing Information</strong></p>
+
+<p>The designations employed and the presentation of material in this information product do not imply the expression of any opinion whatsoever on the part of the Food and Agriculture Organization of the United Nations (FAO) concerning the legal or development status of any country, territory, city or area or of its authorities, or concerning the delimitation of its frontiers or boundaries. The mention of specific companies or products of manufacturers, whether or not these have been patented, does not imply that these have been endorsed or recommended by FAO in preference to others of a similar nature that are not mentioned.</p>
+
+<p>The views expressed in this information product are those of the author(s) and do not necessarily reflect the views or policies of FAO.</p>
+
+<p><strong>ISBN xxx</strong></p>
+<p>© FAO, 2025</p>
+
+<p>Some rights reserved. This work is made available under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 IGO licence (CC BY-NC-SA 3.0 IGO; 
+<a href="https://creativecommons.org/licenses/by-nc-sa/3.0/igo/legalcode" target="_blank">https://creativecommons.org/licenses/by-nc-sa/3.0/igo/legalcode</a>).</p>
+
+<p>Under the terms of this licence, this work may be copied, redistributed and adapted for non-commercial purposes, provided that the work is appropriately cited. In any use of this work, there should be no suggestion that FAO endorses any specific organization, products, or services. The use of the FAO logo is not permitted. If the work is adapted, then it must be licensed under the same or equivalent Creative Commons licence. If a translation of this work is created, it must include the following disclaimer along with the required citation:</p>
+
+<p><em>“This translation was not created by the Food and Agriculture Organization of the United Nations (FAO). FAO is not responsible for the content or accuracy of this translation. The original [Language] edition shall be the authoritative edition.”</em></p>
+
+<p>Disputes arising under the licence that cannot be settled amicably will be resolved by mediation and arbitration as described in Article 8 of the licence except as otherwise provided herein. The applicable mediation rules will be the mediation rules of the World Intellectual Property Organization (<a href="http://www.wipo.int/amc/en/mediation/rules" target="_blank">WIPO Mediation Rules</a>), and any arbitration will be conducted in accordance with the Arbitration Rules of the United Nations Commission on International Trade Law (UNCITRAL).</p>
+
+<p><strong>Third-party materials.</strong> Users wishing to reuse material from this work that is attributed to a third party, such as tables, figures, or images, are responsible for determining whether permission is needed for that reuse and for obtaining permission from the copyright holder. The risk of claims resulting from infringement of any third-party-owned component in the work rests solely with the user.</p>
+
+<p><strong>Sales, rights and licensing.</strong> FAO information products are available on the FAO website (<a href="http://www.fao.org/publications" target="_blank">www.fao.org/publications</a>) and can be purchased through <a href="mailto:publications-sales@fao.org">publications-sales@fao.org</a>. Requests for commercial use should be submitted via: <a href="http://www.fao.org/contact-us/licence-request" target="_blank">www.fao.org/contact-us/licence-request</a>. Queries regarding rights and licensing should be submitted to: <a href="mailto:copyright@fao.org">copyright@fao.org</a>.</p>
+
+</blockquote>
+
+<blockquote style="background-color:#f0f0f0; padding:15px; border-left:5px solid #ccc;">
+<p><strong>Editing and publication</strong></p>
+<p>Matteo Sala (FAO-GSP)</p>
+
+<p>Andy Murray (FAO-GSP)</p>
+</blockquote>
+
 ```{r, echo=FALSE, results='asis'}
 if (!knitr::is_latex_output()) {
   cat("---\n")
@@ -75,12 +112,32 @@ if (!knitr::is_latex_output()) {
   cat("  - name: \"Yufeng Ge\"\n")
   cat("    affiliation: \"Department of Biological Systems Engineering, University of Nebraska-Lincoln, Lincoln, Nebraska, USA\"\n")
   cat("    email: \"yge2@unl.edu\"\n")
+  cat("  - name: \"Issam Barra\"\n")
+  cat("    affiliation: \"Global Soil Partnership, FAO, Roma, Italy\"\n")
+  cat("    email: \"Issam.Barra@fao.org\"\n")
   cat("  - name: \"Yi Peng\"\n")
   cat("    affiliation: \"Global Soil Partnership, FAO, Roma, Italy\"\n")
   cat("    email: \"Yi.Peng@fao.org\"\n")
   cat("---\n")
 }
 ```
+
+<style type="text/css">
+
+h1.title {
+  font-size: 40px;
+  text-align: center;
+  font-weight: bold;
+}
+h3.subtitle {
+  font-size: 28px;
+  text-align: center;
+}
+</style>
+
+# Executive summary
+
+This document provides a comprehensive guide to the process of soil spectroscopic modelling, from data acquisition to interpretation, with a focus on using R for analytical modelling. It covers the entire workflow involved in generating reliable predictions of soil properties from spectral data, including data preprocessing, exploratory analysis, calibration, model training, and validation. Practical examples in R are provided throughout, illustrating key steps such as spectral transformation, principal component (PC) analysis, and multivariate regression techniques for predictive modelling. These steps help convert raw spectral data into actionable insights, allowing users to estimate soil attributes like organic carbon (C), clay content, and mineral composition. The document introduces well-known mathematical transfer functions, which correlate spectral wavelengths to soil properties, and how these models can be calibrated using conventional laboratory analysed reference data. Additionally, it explores the challenges of interpreting complex infrared spectra, especially the overlapping absorption bands in the vis-NIR region, and provides strategies to overcome these difficulties. It emphasizes the use of chemometric tools, such as partial least squares (PLS) regression, to extract meaningful relationships between spectral features and soil attributes. This document is the second in a series of three training materials designed to guide users through basic, intermediate, and advanced topics in soil vis-NIR and MIR spectroscopy. The content is aimed at equipping researchers, practitioners and soil laboratory technicians with the knowledge and tools needed to apply spectroscopic techniques for soil analysis, with a focus on practical implementation using R.
 
 # Introduction
 
@@ -2739,5 +2796,19 @@ two instruments, and a transfer matrix is estimated by the difference
 between the two set of spectra, for each spectral band. Once estimated,
 the subordinate (i.e. unstandardized) spectra are multiplied by the
 transfer matrix, which yield a spectra corrected for the difference of instrument. These techniques were evaluated in @pittaki2021evaluating, in which it was found that they are robust for transferring soil spectroscopy calibration models between instrument. They are, however, seldom used in soil infrared research because they require samples scanned in the various instruments. Recently, @mishra2020two developed techniques for transferring calibration models without standard samples, whereas @mishra2021standard inform that standard samples are only one way of transferring calibration models and that technique working without standard samples hold promises in NIR spectroscopy.
+
+# Reviewers
+
+Brendan Malone (Commonwealth Scientific and Industrial Research Organization Agriculture and Food Research Unit, Australia)
+
+Yuxin Ma (New South Wales Department of Climate Change, Energy, the Environment and Water, Australia)
+
+# Acknowledgements
+
+This course is a training resource on soil spectral data analysis, covering beginner to intermediate levels. It was developed by the Global Soil Laboratory Network Initiative on Soil Spectroscopy (GLOSOLAN-Spec) under FAO’s Global Soil Partnership (GSP), through the collaboration of soil spectroscopy experts from various institutions worldwide.
+
+The GLOSOLAN-Spec Initiative and the authors extend their gratitude to FAO's Soil Mapping for Resilient Agrifood Systems (SoilFER) project and the Vision for Adapted Crops and Soils (VACS) – initiated by the United States Department of State – for their support.
+
+Special thanks also go to the Kellogg Soil Survey Laboratory of USDA-NRCS for providing the spectral datasets used in this document.
 
 # References
